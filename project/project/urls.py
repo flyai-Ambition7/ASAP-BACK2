@@ -18,17 +18,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from rest_framework import routers
-from asap import views
+# from rest_framework import routers
+# from asap import views
 
-# 라우터 만들기
-router = routers.DefaultRouter()
-# tests라는 이름으로 humanInfoViewSet에 등록
-router.register(r'tests', views.hInfoViewSet)
-router.register(r'tests2', views.TestViewSet)
+# # 라우터 만들기
+# router = routers.DefaultRouter()
+# # router.register(r'tests2', views.TestViewSet2)
+# router.register(r'tests', views.TestViewSet)
+# router.register(r'posts', views.PostViewset)
+# router.register(r'new_menu_input', views.ItemInfoViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('asap/', include('asap.urls')),
-    path('', include(router.urls))
-]
+    # path('', include(router.urls))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# tests라는 이름으로 humanInfoViewSet에 등록생
+# router.register(r'tests', views.hInfoViewSet)
+# router.register(r'tests', views.VersionViewSet)
