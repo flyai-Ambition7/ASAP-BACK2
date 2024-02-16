@@ -53,7 +53,7 @@ class ImgSerializer(serializers.ModelSerializer):
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token # Token 모델
-from .models import Profile, CommonInfo, ItemInfo
+from .models import Profile, Chunk, ItemInfo
 
 from rest_framework import serializers
 from django.contrib.auth.models import User
@@ -153,3 +153,19 @@ class ItemInfoSerializer(serializers.ModelSerializer):
         model = ItemInfo
         fields = ('image','store_name', 'purpose', 'result_type', 'theme',
                   'product_name', 'price', 'description', 'business_hours', 'location', 'contact')
+
+import base64
+class Base64ImageEncoder(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        if obj and hasattr(obj, 'read'):
+            encoded_data = base64.b64encode(obj.read()).decode("utf-8")
+            return encoded_data
+        return None
+    
+class ChunkSerializer(serializers.ModelSerializer):
+    image_data = Base64ImageField()
+    encoded_image_data = Base64ImageEncoder(source='image_data', read_only=True)
+
+    class Meta:
+        model = Chunk
+        fields = '__all__'

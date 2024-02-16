@@ -39,8 +39,8 @@ class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
 #----------------------------------
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import RegisterSerializer, LoginSerializer, ItemInfoSerializer
-from .models import Profile, ItemInfo
+from .serializers import ChunkSerializer, RegisterSerializer, LoginSerializer, ItemInfoSerializer
+from .models import Profile, ItemInfo, Chunk
 from rest_framework import generics, status
 from django.utils import timezone
 # Create your views here.
@@ -71,6 +71,10 @@ class LogoutView(APIView):
 class ItemInfoViewset(viewsets.ModelViewSet):
     queryset = ItemInfo.objects.all()
     serializer_class = ItemInfoSerializer
+
+class ChunkViewset(viewsets.ModelViewSet):
+    queryset = Chunk.objects.all()
+    serializer_class = ChunkSerializer
 
 # blank - 필수 입력여부, null - null값 허용?아마?
  # Event_Inpu, Opening_Input - 아직 입력값 정해지지 않음.

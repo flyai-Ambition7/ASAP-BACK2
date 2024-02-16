@@ -89,3 +89,12 @@ class ItemInfo(CommonInfo, models.Model):
     business_hours = models.CharField(max_length=30, blank=True) # 가게 영업시간
     location = models.CharField(max_length=100, blank= True) # 가게 위치
     contact = models.CharField(max_length=20, blank= True) # 가게 전화번호
+
+
+
+class Chunk(models.Model):
+    image_data = models.ImageField(upload_to='chunks/')
+    encoded_image_data = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f'Chunk {self.id}'
